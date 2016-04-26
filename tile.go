@@ -1,25 +1,27 @@
 package main
 
 const WallType = "wall"
-const WallTypeChar = "x"
-const DefaultTypeChar = " "
+const WallTypeChar = "xx"
+const FloorType = "floor"
+const FloorTypeChar = "  "
+const DefaultTypeChar = "!!"
 
 type Tile struct {
-	Type string
+	Point
+	Type   string
+	region int
 }
 
-func NewTile(t string) *Tile {
+func NewTile(t string, x, y int) *Tile {
 	return &Tile{
-		Type: t,
+		Type:  t,
+		Point: Point{x, y},
 	}
 }
 
 func (t *Tile) String() string {
-	switch {
-	case t.Type == WallType:
-		return WallTypeChar
-	default:
-		return DefaultTypeChar
-	}
-
+	return map[string]string{
+		WallType:  WallTypeChar,
+		FloorType: FloorTypeChar,
+	}[t.Type]
 }
